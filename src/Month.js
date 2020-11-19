@@ -30,7 +30,7 @@ class MonthView extends React.Component {
     this._pendingSelection = []
     this.slotRowRef = React.createRef()
     this.state = {
-      rowLimit: 6,
+      rowLimit: 5,
       needLimitMeasure: true,
     }
   }
