@@ -286,6 +286,9 @@ function diff(dateA, dateB, unit) {
     )
   )
 }
+function isWorkDay(date) {
+  return date.getDay() !== 6 && date.getDay() !== 0
+}
 
 var EventCell = /*#__PURE__*/ (function(_React$Component) {
   _inheritsLoose(EventCell, _React$Component)
@@ -2465,8 +2468,17 @@ var MonthView = /*#__PURE__*/ (function(_React$Component) {
       date = _this$props4.date,
       localizer = _this$props4.localizer,
       className = _this$props4.className,
-      month = visibleDays(date, localizer),
-      weeks = chunk(month, 7)
+      workdaysOnly = _this$props4.workdaysOnly,
+      month = visibleDays(date, localizer)
+
+    if (workdaysOnly) {
+      month = month.filter(function(date) {
+        return isWorkDay(date)
+      })
+    }
+
+    var num_days = workdaysOnly ? 5 : 7,
+      weeks = chunk(month, num_days)
     this._weekCount = weeks.length
     return /*#__PURE__*/ React.createElement(
       'div',
@@ -2488,11 +2500,20 @@ var MonthView = /*#__PURE__*/ (function(_React$Component) {
   _proto.renderHeaders = function renderHeaders(row) {
     var _this$props5 = this.props,
       localizer = _this$props5.localizer,
-      components = _this$props5.components
+      components = _this$props5.components,
+      workdaysOnly = _this$props5.workdaysOnly
     var first = row[0]
     var last = row[row.length - 1]
     var HeaderComponent = components.header || Header
-    return range(first, last, 'day').map(function(day, idx) {
+    var days = range(first, last, 'day')
+
+    if (workdaysOnly) {
+      days = days.filter(function(date) {
+        return isWorkDay(date)
+      })
+    }
+
+    return days.map(function(day, idx) {
       return /*#__PURE__*/ React.createElement(
         'div',
         {
@@ -2622,6 +2643,7 @@ MonthView.propTypes =
         getDrilldownView: PropTypes.func.isRequired,
         popup: PropTypes.bool,
         handleDragStart: PropTypes.func,
+        workdaysOnly: PropTypes.bool,
         popupOffset: PropTypes.oneOfType([
           PropTypes.number,
           PropTypes.shape({
