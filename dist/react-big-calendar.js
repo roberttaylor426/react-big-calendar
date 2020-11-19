@@ -2459,8 +2459,12 @@
       )
     )
   }
-  function isWorkDay(date) {
-    return date.getDay() !== 6 && date.getDay() !== 0
+  function isWorkDay(date, localizer) {
+    var startOfWeek = localizer.startOfWeek()
+    var weekendDays = [5, 6].map(function(d) {
+      return (d + startOfWeek) % 7
+    })
+    return weekendDays.indexOf(date.getDay()) === -1
   }
 
   /**
@@ -11887,7 +11891,7 @@
 
       if (workdaysOnly) {
         month = month.filter(function(date) {
-          return isWorkDay(date)
+          return isWorkDay(date, localizer)
         })
       }
 
@@ -11923,7 +11927,7 @@
 
       if (workdaysOnly) {
         days = days.filter(function(date) {
-          return isWorkDay(date)
+          return isWorkDay(date, localizer)
         })
       }
 

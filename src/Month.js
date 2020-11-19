@@ -77,7 +77,7 @@ class MonthView extends React.Component {
       month = dates.visibleDays(date, localizer)
 
     if (workdaysOnly) {
-      month = month.filter(date => dates.isWorkDay(date))
+      month = month.filter(date => dates.isWorkDay(date, localizer))
     }
 
     let num_days = workdaysOnly ? 5 : 7,
@@ -184,7 +184,7 @@ class MonthView extends React.Component {
     let days = dates.range(first, last, 'day')
 
     if (workdaysOnly) {
-      days = days.filter(date => dates.isWorkDay(date))
+      days = days.filter(date => dates.isWorkDay(date, localizer))
     }
 
     return days.map((day, idx) => (

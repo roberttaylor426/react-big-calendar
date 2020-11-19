@@ -286,8 +286,12 @@ function diff(dateA, dateB, unit) {
     )
   )
 }
-function isWorkDay(date) {
-  return date.getDay() !== 6 && date.getDay() !== 0
+function isWorkDay(date, localizer) {
+  var startOfWeek = localizer.startOfWeek()
+  var weekendDays = [5, 6].map(function(d) {
+    return (d + startOfWeek) % 7
+  })
+  return weekendDays.indexOf(date.getDay()) === -1
 }
 
 var EventCell = /*#__PURE__*/ (function(_React$Component) {
@@ -2473,7 +2477,7 @@ var MonthView = /*#__PURE__*/ (function(_React$Component) {
 
     if (workdaysOnly) {
       month = month.filter(function(date) {
-        return isWorkDay(date)
+        return isWorkDay(date, localizer)
       })
     }
 
@@ -2509,7 +2513,7 @@ var MonthView = /*#__PURE__*/ (function(_React$Component) {
 
     if (workdaysOnly) {
       days = days.filter(function(date) {
-        return isWorkDay(date)
+        return isWorkDay(date, localizer)
       })
     }
 

@@ -169,6 +169,8 @@ export function tomorrow() {
   return dates.add(dates.startOf(new Date(), 'day'), 1, 'day')
 }
 
-export function isWorkDay(date) {
-  return date.getDay() !== 6 && date.getDay() !== 0
+export function isWorkDay(date, localizer) {
+  let startOfWeek = localizer.startOfWeek()
+  const weekendDays = [5, 6].map(d => (d + startOfWeek) % 7)
+  return weekendDays.indexOf(date.getDay()) === -1
 }
