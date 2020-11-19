@@ -17,7 +17,6 @@
   "files": [
     "lib/",
     "dist/",
-    "src/",
     "LICENSE",
     "README.md",
     "CHANGELOG.md"
