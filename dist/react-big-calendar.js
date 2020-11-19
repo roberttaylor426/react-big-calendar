@@ -11834,7 +11834,7 @@
       _this._pendingSelection = []
       _this.slotRowRef = /*#__PURE__*/ React__default.createRef()
       _this.state = {
-        rowLimit: 5,
+        rowLimit: 6,
         needLimitMeasure: true,
       }
       return _this

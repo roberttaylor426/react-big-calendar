@@ -2420,7 +2420,7 @@ var MonthView = /*#__PURE__*/ (function(_React$Component) {
     _this._pendingSelection = []
     _this.slotRowRef = /*#__PURE__*/ React.createRef()
     _this.state = {
-      rowLimit: 5,
+      rowLimit: 6,
       needLimitMeasure: true,
     }
     return _this
